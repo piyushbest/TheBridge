@@ -1,0 +1,32 @@
+name: TheBRIDGE Free
+main: Piyush\Main
+author: piyushbest
+depend:
+  - ScoreHud
+  - FormAPI
+description: The Bridge minigames
+api: 4.0.0
+version: 1
+branches:
+  - master
+projects:
+  PLUGIN_NAME:
+    libs:
+      - src: Ifera/ScoreFactory/ScoreFactory
+        version: ^3.1.0
+permissions:
+  tb.cmd:
+    default: op
+    description: /tb commands
+  tb.create:
+    default: op
+    description: /tb create command
+  tb.set:
+    default: op
+    description: /tb set <arenaName> to set arena
+  tb.join:
+    default: op
+    description: /tb join <arenaName> to join an arena
+  tb.start:
+    default: op
+    description: /tb forcestart to start an arena
