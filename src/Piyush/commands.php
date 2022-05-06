@@ -54,7 +54,7 @@ class commands extends Command{
                 $sender->sendMessage("Arena Created");
                 break;
             case "npc":
-                if(!$sender->hasPermission("tb.set")) {
+                if(!$sender->hasPermission("tb.npc")) {
                     $sender->sendMessage("§cYou have not permissions to use this command!");
                     break;
                 }
