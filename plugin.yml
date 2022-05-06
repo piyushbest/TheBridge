@@ -2,7 +2,6 @@ name: TheBRIDGE Free
 main: Piyush\Main
 author: piyushbest
 depend:
-  - ScoreHud
   - FormAPI
 description: The Bridge minigames
 api: 4.0.0
