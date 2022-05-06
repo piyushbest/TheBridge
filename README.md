@@ -3,13 +3,17 @@ The Bridge is a mode for the Duels minigame. It is a type of duel which involves
 #
 # Todo
 Add pricing onWin
+
 ScoreBoard Colour(send me your one)
-#
+
 # TheBridge
 
-This is Free Version of this plugin
-you can purchase paid version of this plugin from discord
+This is Free Version of this plugin,
+
+you can purchase paid version of this plugin from discord :
 PiyushNOOB#6288
+
+Setup/Gameplay : [here](https://youtu.be/i4Y9FLmpk0g)
 #
 # Youtubers
 Give credits if your making video on it
