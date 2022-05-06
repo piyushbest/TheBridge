@@ -17,6 +17,9 @@ permissions:
   tb.cmd:
     default: op
     description: /tb commands
+  tb.npc:
+    default: op
+    description: /tb npc
   tb.create:
     default: op
     description: /tb create command
