@@ -1,8 +1,6 @@
 name: TheBRIDGE Free
 main: Piyush\Main
 author: piyushbest
-depend:
-  - FormAPI
 description: The Bridge minigames
 api: 4.0.0
 version: 1
