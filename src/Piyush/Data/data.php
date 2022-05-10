@@ -7,7 +7,7 @@ use Piyush\Main;
 use pocketmine\utils\Config;
 use pocketmine\world\World;
 
-class Data {
+class data {
     private $main;
 
     public function __construct(Main $main) {
