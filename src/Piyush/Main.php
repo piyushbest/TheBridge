@@ -5,7 +5,7 @@ namespace Piyush;
 use JsonException;
 use Piyush\Arena\Arena;
 use Piyush\Arena\EmptyArenaChooser;
-use Piyush\Data\Data;
+use Piyush\Data\data;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntityFactory;
 use pocketmine\entity\Human;
@@ -32,14 +32,14 @@ class Main extends PluginBase implements Listener{
     /** @var Arena[] $arena */
     public array $arena = [];
 
-    /** @var Data */
-    public Data $data;
+    /** @var data */
+    public data $data;
     public EmptyArenaChooser $emptyArenaChooser;
 
     public function onEnable() : void {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->eventListener = new EL($this);
-        $this->data = new Data($this);
+        $this->data = new data($this);
         $this->emptyArenaChooser = new EmptyArenaChooser($this);
         $entityClass = NPChuman::class;
         EntityFactory::getInstance()->register($entityClass, function(World $world, CompoundTag $nbt) use ($entityClass): Entity {
