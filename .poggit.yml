@@ -6,7 +6,7 @@ projects:
   TheBridge:
     path: ""
 projects:
-    TheBridge_Free:
+    TheBRIDGE_Free:
     libs:
       - src: Ifera/ScoreFactory/ScoreFactory
         version: ^3.1.0
