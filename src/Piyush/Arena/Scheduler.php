@@ -139,7 +139,7 @@ class Scheduler extends Task
             $humans = $this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($world)->getEntities();
             foreach ($humans as $human)
                 if ($human instanceof NPChuman) {
-                    if(!is_null($human){
+                    if(!is_null($human)){
                     $ran = $this->plugin->plugin->emptyArenaChooser->getRandomArena();
                         if (!empty($ran->data["world"])) {
                             $human->setNameTag(TextFormat::RED . "TheBridge \n". TextFormat::AQUA . $ran->data["world"] . "\n" . TextFormat::BLUE . count($ran->players) . "/8");
