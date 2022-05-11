@@ -62,13 +62,9 @@ class commands extends Command{
                     $sender->sendMessage("§c> This command can be used only in-game!");
                     break;
                 }
-                $arena = null;
-                foreach ($this->main->arena as $arenas) {
-                    $arena = $arenas;
                     foreach ($sender->getWorld()->getEntities() as $en)
                     if($en instanceof NPChuman){
                         $en->kill();
-                }
                     (new NPC($this->main))->npcmaker($sender);
                 }
                 break;
