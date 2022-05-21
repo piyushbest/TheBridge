@@ -67,7 +67,8 @@ class commands extends Command{
                         $en->kill();
                     }
                }
-(new NPC($this->main))->npcmaker($sender);
+(new NPC($this->main))->npcmaker($sender);//Dont know why i don't create entity on same file
+$sender->sendMessage("§cCreated npc on your location");
                 break;
             case "set":
                 if(!$sender->hasPermission("tb.set")) {
