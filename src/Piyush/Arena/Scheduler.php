@@ -137,6 +137,7 @@ class Scheduler extends Task
         $world = $this->plugin->plugin->getConfig()->get("NPCWorld");
         if (!is_null($world)) {
             $humans = $this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($world)->getEntities();
+if(!is_null($humans)){
             foreach ($humans as $human)
                 if ($human instanceof NPChuman) {
                     if(!is_null($human)){
@@ -150,6 +151,7 @@ class Scheduler extends Task
                     }
                 }
         }
+}
 
     }
 
