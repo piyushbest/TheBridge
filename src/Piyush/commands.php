@@ -62,11 +62,12 @@ class commands extends Command{
                     $sender->sendMessage("§c> This command can be used only in-game!");
                     break;
                 }
-                    foreach ($sender->getWorld()->getEntities() as $en)
+                    foreach ($sender->getWorld()->getEntities() as $en){
                     if($en instanceof NPChuman){
                         $en->kill();
-                    (new NPC($this->main))->npcmaker($sender);
-                }
+                    }
+               }
+(new NPC($this->main))->npcmaker($sender);
                 break;
             case "set":
                 if(!$sender->hasPermission("tb.set")) {
