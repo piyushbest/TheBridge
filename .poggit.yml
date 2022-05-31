@@ -5,9 +5,9 @@ branches:
 projects:
   TheBridge:
     path: ""
-projects:
-    TheBRIDGE_Free:
     libs:
       - src: Ifera/ScoreFactory/ScoreFactory
         version: ^3.1.0
+      - src: jojoe77777/FormAPI/libFormAPI
+      version: ^2.1.0
 ...
