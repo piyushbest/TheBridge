@@ -22,6 +22,7 @@ use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
 use pocketmine\world\World;
+use jojoe77777\FormAPI\SimpleForm;
 
 
 
@@ -484,8 +485,7 @@ public function checkWinRed() : bool
     public function selectTeamForm($player)
     {
         $inv = $player->getInventory();
-        $api = Server::getInstance()->getPluginManager()->getPlugin("FormAPI");
-        $form = $api->createSimpleForm(function (Player $player, int $data = null) {
+        $form = new SimpleForm(function (Player $player, int $data = null) {
             $result = $data;
             if ($result === null) {
                 return true;
