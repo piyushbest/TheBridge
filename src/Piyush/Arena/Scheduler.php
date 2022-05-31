@@ -140,7 +140,6 @@ class Scheduler extends Task
 if(!is_null($humans)){
             foreach ($humans as $human)
                 if ($human instanceof NPChuman) {
-                    if(!is_null($human)){
                     $ran = $this->plugin->plugin->emptyArenaChooser->getRandomArena();
                         if (!empty($ran->data["world"])) {
                             $human->setNameTag(TextFormat::RED . "TheBridge \n". TextFormat::AQUA . $ran->data["world"] . "\n" . TextFormat::BLUE . count($ran->players) . "/8");
@@ -148,7 +147,6 @@ if(!is_null($humans)){
                         } elseif (empty($ran->data["world"])){
                             $human->setNameTag(TextFormat::RED . "THEBRIDGE\n" . TextFormat::AQUA . "ARENAS NOT FOUND");
                         }
-                    }
                 }
         }
 }
