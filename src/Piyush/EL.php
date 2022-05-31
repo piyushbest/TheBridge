@@ -328,6 +328,7 @@ if($arena->onGame($p)) {
 
                 foreach ($arenas as $arena)
                     $arena->data["world"] = $args[1];
+$this->plugin->getServer()->getWorldManager()->getWorldByName($args[1])->setAutoSave(false);
                 break;
             case "spawn":
                 if(is_array($arena)) {
