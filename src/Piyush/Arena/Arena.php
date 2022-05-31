@@ -62,7 +62,7 @@ class Arena implements Listener
     public $blues = [];
     public $phase = 0;
     public $kills = [];
-publi $lastDamage = [];
+public $lastDamage = [];
 
     public $gameStarted = false;
     /**
