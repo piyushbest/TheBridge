@@ -64,7 +64,7 @@ class commands extends Command{
                 }
                     foreach ($sender->getWorld()->getEntities() as $en){
                     if($en instanceof NPChuman){
-                        $en->kill();
+                        $en->flagForDespawn();
                     }
                }
 (new NPC($this->main))->npcmaker($sender);//Dont know why i don't create entity on same file
@@ -83,7 +83,7 @@ $sender->sendMessage("§cCreated npc on your location");
                     $sender->sendMessage("§cUsage: §7/swd set <arenaName|all> OR §7/swd set <arenaName1,arenaName2,...>");
                     break;
                 }
-                if(isset($this->plugin->eventListener->setters[$sender->getName()])) {
+                if(isset($this->main->eventListener->setters[$sender->getName()])) {
                     $sender->sendMessage("§c> You are already in setup mode!");
                     break;
                 }
