@@ -24,7 +24,7 @@ class Main extends PluginBase implements Listener{
     /** @var EL $eventListener */
     public EL $eventListener;
 
-    private static Main $i;
+    public static Main $i;
 
     /** @var Command[] $cmd */
     public array $cmd = [];
@@ -60,6 +60,6 @@ $this->i = $this;
 
 
     public static function getInstance(): Main {
-        return $this->$i;
+        return self::$i;
     }
 }
