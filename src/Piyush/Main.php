@@ -24,6 +24,8 @@ class Main extends PluginBase implements Listener{
     /** @var EL $eventListener */
     public EL $eventListener;
 
+    private static Main $i;
+
     /** @var Command[] $cmd */
     public array $cmd = [];
 
@@ -45,6 +47,7 @@ class Main extends PluginBase implements Listener{
         }, [$entityClass]);
     $this->getServer()->getPluginManager()->registerEvents($this->eventListener, $this);
         $this->getServer()->getCommandMap()->register("thebridge", $this->cmd[] = new commands($this));
+$this->i = $this;
        }
 
 
@@ -57,6 +60,6 @@ class Main extends PluginBase implements Listener{
 
 
     public static function getInstance(): Main {
-        return self::$this;
+        return $this->$i;
     }
 }
