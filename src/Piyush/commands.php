@@ -148,14 +148,11 @@ $sender->sendMessage("§cCreated npc on your location");
                     $sender->sendMessage("Usage: /tb start <arenaName>");
                     break;
                 }$arena = null;
-
-                if(isset($args[1])) {
                     if(!isset($this->main->arena[$args[1]])) {
                         $sender->sendMessage("§c> Arena $args[1] was not found!");
                         break;
-                    }
+                   }
                     $arena = $this->main->arena[$args[1]];
-                }
 
                 if($arena == null && $sender instanceof Player) {
                     foreach ($this->main->arena as $arenas) {
