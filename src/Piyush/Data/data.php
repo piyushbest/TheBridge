@@ -48,7 +48,7 @@ class data {
             }
             $config = new Config($this->getDataFolder() . "arenas" . DIRECTORY_SEPARATOR . $fileName . ".yml", Config::YAML);
             $config->setAll($arena->data);
-            $config->save(true);
+            $config->save();
         }
     }
     private function getDataFolder(): string {
