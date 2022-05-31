@@ -543,7 +543,7 @@ public function checkWinRed() : bool
         $form->setTitle("§lTeam Selector");
         $form->addButton("§cRed Team §7(§a" . count($this->reds) . "§7/§a4§7)", 0, "textures/blocks/wool_colored_red");
         $form->addButton("§1Blue Team §7(§a" . count($this->blues) . "§7/§a4§7)", 0, "textures/blocks/wool_colored_blue");
-        $form->sendtoPlayer($player);
+        $form->sendToPlayer($player);
         return $form;
     }
 
