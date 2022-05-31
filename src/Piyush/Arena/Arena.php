@@ -173,7 +173,7 @@ public $lastDamage = [];
         $this->bluess = [];
         $this->playerss = [];
         $this->preventfalldamage = [];
-        $this->deaths = []
+        $this->deaths = [];
         $this->lastDamage = [];
         $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["world"])->setAutoSave(false);
     }
