@@ -62,6 +62,7 @@ class Arena implements Listener
     public $blues = [];
     public $phase = 0;
     public $kills = [];
+publi $lastDamage = [];
 
     public $gameStarted = false;
     /**
@@ -172,7 +173,8 @@ class Arena implements Listener
         $this->bluess = [];
         $this->playerss = [];
         $this->preventfalldamage = [];
-        $this->deaths = [];
+        $this->deaths = []
+        $this->lastDamage = [];
         $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["world"])->setAutoSave(false);
     }
 
