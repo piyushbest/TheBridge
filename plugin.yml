@@ -4,8 +4,6 @@ author: piyushbest
 description: The Bridge minigames
 api: 4.0.0
 version: 1
-depend:
-- FormAPI
 branches:
   - master
 permissions:
