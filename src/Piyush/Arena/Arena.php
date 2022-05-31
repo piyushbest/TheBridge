@@ -139,12 +139,7 @@ class Arena implements Listener
 
             $this->world = $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["world"]);
         } else {
-            if (is_null($this->world)) {
-                $this->setup = true;
-                $this->plugin->getLogger()->error("Disabling arena {$this->data["world"]}: level not found!");
-                $this->data["world"] = null;
-                return;
-            }
+ //useless
 
         }
 
@@ -350,7 +345,7 @@ class Arena implements Listener
         foreach ($this->players as $player) {
             $players[$player->getName()] = $player;
             $player->setGamemode(GameMode::SURVIVAL());
-            $player->getInventory()->clearAll(true);
+            $player->getInventory()->clearAll();
             $player->setImmobile(false);
             if(in_array($player->getName(), $this->reds)){
                 $this->tpRed($player);
@@ -606,7 +601,7 @@ public function checkWinRed() : bool
 
         if ($this->onGame($player)) {
             $player->getHungerManager()->setFood(20);
-            $event->cancel(true);
+            $event->cancel();
         }
     }
 
