@@ -20,8 +20,6 @@ use pocketmine\nbt\tag\CompoundTag;
 class Main extends PluginBase implements Listener{
 
 
-    public static $instance;
-
 
     /** @var EL $eventListener */
     public EL $eventListener;
@@ -47,7 +45,6 @@ class Main extends PluginBase implements Listener{
         }, [$entityClass]);
     $this->getServer()->getPluginManager()->registerEvents($this->eventListener, $this);
         $this->getServer()->getCommandMap()->register("thebridge", $this->cmd[] = new commands($this));
-$this->instance = $this;
        }
 
 
@@ -60,6 +57,6 @@ $this->instance = $this;
 
 
     public static function getInstance(): Main {
-        return self::$instance;
+        return $this;
     }
 }
