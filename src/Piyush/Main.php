@@ -47,7 +47,7 @@ class Main extends PluginBase implements Listener{
         }, [$entityClass]);
     $this->getServer()->getPluginManager()->registerEvents($this->eventListener, $this);
         $this->getServer()->getCommandMap()->register("thebridge", $this->cmd[] = new commands($this));
-$this->i = $this;
+self::$i = $this;
        }
 
 
