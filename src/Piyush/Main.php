@@ -20,7 +20,7 @@ use pocketmine\nbt\tag\CompoundTag;
 class Main extends PluginBase implements Listener{
 
 
-    public $instance;
+    public static $instance;
 
 
     /** @var EL $eventListener */
