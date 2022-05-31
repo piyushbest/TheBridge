@@ -33,6 +33,6 @@ class NPC{
         $this->plugin->getConfig()->setAll($this->world);
         $this->plugin->getConfig()->save(true);
         $human->spawnToAll();
-        $player->getWorld()->save(true);
+        $player->getWorld()->save();
     }
 }
