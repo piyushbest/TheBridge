@@ -83,12 +83,14 @@ class Scheduler extends Task
             case Arena::PHASE_GAME:
                 if ($this->plugin->checkWinRed()) $this->plugin->restart();
                 if ($this->plugin->checkWinBlue()) $this->plugin->restart();
+                $this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($this->plugin->data["world"])->setAutoSave(false);
                 foreach ($this->plugin->players as $player) {
 
                     $this->onGameScore($player);
                 }
                 break;
             case Arena::PHASE_RESTART:
+$this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($this->plugin->data["world"])->setAutoSave(false);
                 foreach ($this->plugin->players as $ignored){
 
                     if($this->restartTime >= 0) {
