@@ -105,6 +105,8 @@ $this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($this->plu
                         if ($this->plugin->checkWinRed()){
                             $this->plugin->plugin->getServer()->broadcastMessage($this->plugin->getPrefix() . "Red Team Won The Game on " . $this->plugin->data["world"]);
                         }
+                        break;
+                    case 1:
                         foreach ($this->plugin->players as $player) {
                             $player->getEffects()->clear();
                             $this->plugin->leaveGame($player, false);
@@ -112,7 +114,6 @@ $this->plugin->plugin->getServer()->getWorldManager()->getWorldByName($this->plu
                                 ScoreFactory::removeObjective($player);
                             }
                         }
-                        break;
                     case -1:
                         $this->plugin->world = $this->plugin->reset->resetMap($this->plugin->data["world"]);
                         break;
