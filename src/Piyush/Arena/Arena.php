@@ -140,8 +140,11 @@ public $lastDamage = [];
 
             $this->world = $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["world"]);
         } else {
- //useless
-
+         if($this->world == null){
+$this->setup = true;
+$this->data["world"] = null;
+return;
+}
         }
 
         if (!$this->plugin->getServer()->getWorldManager()->isWorldLoaded($this->data["world"])) {
