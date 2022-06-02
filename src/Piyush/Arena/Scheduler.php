@@ -143,10 +143,10 @@ if(!is_null($humans)){
             foreach ($humans as $human)
                 if ($human instanceof NPChuman) {
                     $ran = $this->plugin->plugin->emptyArenaChooser->getRandomArena();
-                        if (!empty($ran->data["world"])) {
+                        if (!is_null($ran)) {
                             $human->setNameTag(TextFormat::RED . "TheBridge \n". TextFormat::AQUA . $ran->data["world"] . "\n" . TextFormat::BLUE . count($ran->players) . "/8");
                             $human->setNameTagAlwaysVisible();
-                        } elseif (empty($ran->data["world"])){
+                        } else{
                             $human->setNameTag(TextFormat::RED . "THEBRIDGE\n" . TextFormat::AQUA . "ARENAS NOT FOUND");
                         }
                 }
