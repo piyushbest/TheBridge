@@ -234,8 +234,8 @@ return;
             $pos = $player->getPosition();
             $block = $player->getWorld()->getBlock($player->getPosition()->subtract(0, 1, 0));
             foreach ($this->players as $players) {
-                foreach ($this->redss as $redPlayer)
-                    foreach ($this->bluess as $bluePlayer)
+                foreach ($this->redss as $redPlayer){
+                    foreach ($this->bluess as $bluePlayer){
                         if ($this->onGame($players) && $this->phase == Arena::PHASE_GAME) {
                             if ($block->getId() == 234) {
                                 if (in_array($player->getName(), $this->reds)) {
@@ -249,9 +249,8 @@ return;
                                     $this->tpBlue($bluePlayer, true);
                                     $this->tpRed($redPlayer, true);
                                     $this->bluesp++;
-
+                                    return;
                                 }
-                                return;
                             }
                             if ($block->getId() == 231) {
                                 if (in_array($player->getName(), $this->blues)) {
@@ -265,9 +264,11 @@ return;
                                     $this->tpRed($redPlayer, true);
                                     $this->tpBlue($bluePlayer, true);
                                     $this->redsp++;
+                                    return;
                                 }
-                                return;
                             }
+}
+}
                         }
             }
         }
