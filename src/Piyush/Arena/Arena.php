@@ -308,10 +308,10 @@ foreach($this->plugin->arena as $arenas){
                 break;
             default:
                  if (in_array($player->getName(), $this->reds)) {
-                        unset($this->redss[$player]);
+                        unset($this->redss[$player->getName()]);
                     }
                     if (in_array($player->getName(), $this->blues)) {
-                        unset($this->bluess[$player]);
+                        unset($this->bluess[$player->getName()]);
                     }
                 unset($this->players[$player->getName()]);
                 unset($this->kills[array_search($player->getName(), $this->kills)]);
@@ -369,8 +369,19 @@ foreach($this->plugin->arena as $arenas){
 
             }
         }
+        
+foreach ($this->redss as $red) {
+    foreach ($this->bluess as $blue){
         $this->players = $players;
+        $blues = [];
+        $reds = [];
+        $reds[$red->getName()] = $red;
+        $blues[$blue->getName()] = $blue;
+    $this->bluess = $blues;
+    $this->redss = $reds;
     $this->phase = 1;
+}
+}
 }
 
 public function tpBlue(Player $player, bool $addGlass = false){
