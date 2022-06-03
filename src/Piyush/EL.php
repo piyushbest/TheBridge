@@ -277,7 +277,7 @@ if($arena->onGame($p)) {
                  {
                 $a = $event->getFrom()->getWorld();
                 $b = $event->getTo()->getWorld();
-                if ($a !== $b){
+                if ($b->getFolderName() != $arena->world->getFolderName()){
                     $arena->leaveGame($e);
                     $e->sendMessage(TextFormat::RED . "THEBRIDGE >". TextFormat::AQUA."You Left The Game");
                 }
