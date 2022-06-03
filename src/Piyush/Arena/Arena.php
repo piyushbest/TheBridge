@@ -216,12 +216,12 @@ foreach($this->plugin->arena as $arenas){
         $this->kills[$player->getName()] = 0;
         $this->deaths[$player->getName()] = 0;
         $player->teleport(Position::fromObject(Vector3::fromString($this->data["lobby"][0]), $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["lobby"][1])));
-       if(count($this->reds) <= 4){
+       if(count($this->reds) < 4){
            $this->redss[] = $player;
            $this->reds[] = $player->getName();
            $inv->setItem(4, (new ItemFactory)->get(ItemIds::WOOL, 14, 1)->setCustomName("§r§e Change Team\n§7[Use]"));
        }
-        elseif(count($this->blues) <= 4){
+        elseif(count($this->blues) < 4){
             $this->blues[] = $player->getName();
             $this->bluess[] = $player;
             $inv->setItem(4, (new ItemFactory)->get(ItemIds::WOOL, 11, 1)->setCustomName("§r§e Change Team\n§7[Use]"));
@@ -247,8 +247,9 @@ foreach($this->plugin->arena as $arenas){
                                 if (in_array($player->getName(), $this->blues)) {
                                     $this->broadcastMessage(TextFormat::BLUE . $player->getName() . TextFormat::BLUE . "\nGoal", Arena::MSG_TITLE);
 
-                                    $this->tpBlue($bluePlayer, true);
-                                    $this->tpRed($redPlayer, true);
+                                    
+                                    $this->tpRed($player, true);
+                                    $this->tpBlue($player, true);
                                     $this->bluesp++;
                                     return false;
                                 }
@@ -261,9 +262,9 @@ foreach($this->plugin->arena as $arenas){
                                 }
                                 if (in_array($player->getName(), $this->reds)) {
                                     $this->broadcastMessage(TextFormat::RED . $player->getName() . TextFormat::RED . "\nGoal", Arena::MSG_TITLE);
-
-                                    $this->tpRed($redPlayer, true);
-                                    $this->tpBlue($bluePlayer, true);
+                                    $this->tpBlue($player, true);
+                                    $this->tpRed($player, true);
+                                    
                                     $this->redsp++;
                                     return false;
                                 }
@@ -350,47 +351,73 @@ foreach($this->plugin->arena as $arenas){
 
         $this->phase = self::PHASE_GAME;
         $players = [];
+        $blues = [];
+        $reds = [];
         $this->gameStarted = true;
         $this->scheduler->crt = 10;
         $this->scheduler->minustime = true;
         $this->scheduler->startMsg = true;
 
         foreach ($this->players as $player) {
+            foreach ($this->redss as $red) {
+    foreach ($this->bluess as $blue){
             $players[$player->getName()] = $player;
+        $reds[$red->getName()] = $red;
+        $blues[$blue->getName()] = $blue;
             $player->setGamemode(GameMode::SURVIVAL());
             $player->getInventory()->clearAll();
             $player->setImmobile(false);
             if(in_array($player->getName(), $this->reds)){
                 $this->tpRed($player);
-
-
             } elseif(in_array($player->getName(), $this->blues)){
                 $this->tpBlue($player);
 
             }
         }
         
-foreach ($this->redss as $red) {
-    foreach ($this->bluess as $blue){
-        $this->players = $players;
-        $blues = [];
-        $reds = [];
-        $reds[$red->getName()] = $red;
-        $blues[$blue->getName()] = $blue;
-    $this->bluess = $blues;
-    $this->redss = $reds;
-    $this->phase = 1;
+
+         $this->players = $players;
+         $this->bluess = $blues;
+         $this->redss = $reds;
+         $this->phase = 1;
 }
 }
 }
 
 public function tpBlue(Player $player, bool $addGlass = false){
     if ($addGlass){
+        foreach ($this->bluess as $players){
         $this->scheduler->addGlassBlue();
         $this->scheduler->addMsg = true;
         $this->scheduler->minustime = true;
         $this->scheduler->crt = 5;
         $this->scheduler->startMsg = false;
+        $this->preventfalldamage[] = $players->getName();
+    $this->preventfalldamage[$players->getName()] = microtime(true);
+   $players->teleport(Position::fromObject(new \pocketmine\math\Vector3($this->data["spawnBlue"][2], $this->data["spawnBlue"][3], $this->data["spawnBlue"][4]), $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["spawnBlue"][1])));
+        $players->setHealth(20);
+        $inv = $players->getInventory();
+    $inv->setItem(0, (new ItemFactory())->get(ItemIds::WOODEN_SWORD));
+    $inv->setItem(1, (new ItemFactory())->get(ItemIds::BOW));
+    $inv->setItem(2, (new ItemFactory())->get(ItemIds::SHEARS));
+    $inv->setItem(3, (new ItemFactory())->get(ItemIds::WOOL, 11, 64));
+    $inv->setItem(4, (new ItemFactory())->get(ItemIds::WOOL, 11, 64));
+    $inv->setItem(8, (new ItemFactory())->get(ItemIds::ARROW, 0 , 10));
+    $h = VanillaItems::LEATHER_CAP();
+    $c = VanillaItems::LEATHER_TUNIC();
+    $l = VanillaItems::LEATHER_PANTS();
+    $b = VanillaItems::LEATHER_BOOTS();
+    $color = new Color(0, 0, 255);
+    $h->setCustomColor($color);
+    $c->setCustomColor($color);
+    $l->setCustomColor($color);
+    $b->setCustomColor($color);
+    $players->getArmorInventory()->setHelmet($h);
+    $players->getArmorInventory()->setChestplate($c);
+    $players->getArmorInventory()->setLeggings($l);
+    $players->getArmorInventory()->setBoots($b);
+        }
+        return;
     }
     $this->preventfalldamage[] = $player->getName();
     $this->preventfalldamage[$player->getName()] = microtime(true);
@@ -419,10 +446,40 @@ public function tpBlue(Player $player, bool $addGlass = false){
 }
     public function tpRed(Player $player, bool $addGlass = false){
         if ($addGlass){
+            foreach($this->redss as $players){
             $this->scheduler->addGlassRed();
             $this->scheduler->minustime = true;
             $this->scheduler->crt = 5;
             $this->scheduler->startMsg = false;
+            $this->preventfalldamage[] = $players->getName();
+        $this->preventfalldamage[$players->getName()] = microtime(true);
+        $players->teleport(Position::fromObject(new \pocketmine\math\Vector3($this->data["spawnRed"][2], $this->data["spawnRed"][3], $this->data["spawnRed"][4]), $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["spawnRed"][1])));
+        $players->setHealth(20);
+        $inv = $players->getInventory();
+
+
+        $inv->setItem(0, (new ItemFactory())->get(ItemIds::WOODEN_SWORD));
+        $inv->setItem(1, (new ItemFactory())->get(ItemIds::BOW));
+        $inv->setItem(2, (new ItemFactory())->get(ItemIds::SHEARS));
+        $inv->setItem(3, (new ItemFactory())->get(ItemIds::WOOL, 14, 64));
+        $inv->setItem(4, (new ItemFactory())->get(ItemIds::WOOL, 14, 64));
+        $inv->setItem(8, (new ItemFactory())->get(ItemIds::ARROW, 0 , 10));
+        $h = VanillaItems::LEATHER_CAP();
+        $c = VanillaItems::LEATHER_TUNIC();
+        $l = VanillaItems::LEATHER_PANTS();
+        $b = VanillaItems::LEATHER_BOOTS();
+        $color = new Color(255, 0, 0);
+        $h->setCustomColor($color);
+        $c->setCustomColor($color);
+        $l->setCustomColor($color);
+        $b->setCustomColor($color);
+
+        $players->getArmorInventory()->setHelmet($h);
+        $players->getArmorInventory()->setChestplate($c);
+        $players->getArmorInventory()->setLeggings($l);
+        $players->getArmorInventory()->setBoots($b);
+            }
+            return;
         }
         $this->preventfalldamage[] = $player->getName();
         $this->preventfalldamage[$player->getName()] = microtime(true);
