@@ -186,20 +186,21 @@ return;
 
         if(!$this->phase == 0){
             $player->sendMessage($this->getPrefix() ." Arena Is Started/Restarting");
-            return true;
+            return false;
         }
         if (count($this->players) == 8){
             $player->sendMessage($this->getPrefix() . " Lobby is Full");
-            return true;
+            return false;
         }
 
 
 
-
-        if ($this->onGame($player)) {
+foreach($this->plugin->arena as $arenas){
+        if ($arenas->onGame($player)) {
             $player->sendMessage($this->getPrefix() . "Your already ingame please leave the game first");
-            return true;
+            return false;
         }
+}
 
         array_push($this->playerss, $player->getName());
 
@@ -215,12 +216,12 @@ return;
         $this->kills[$player->getName()] = 0;
         $this->deaths[$player->getName()] = 0;
         $player->teleport(Position::fromObject(Vector3::fromString($this->data["lobby"][0]), $this->plugin->getServer()->getWorldManager()->getWorldByName($this->data["lobby"][1])));
-       if(count($this->reds) < 4){
+       if(count($this->reds) <= 4){
            $this->redss[] = $player;
            $this->reds[] = $player->getName();
            $inv->setItem(4, (new ItemFactory)->get(ItemIds::WOOL, 14, 1)->setCustomName("§r§e Change Team\n§7[Use]"));
        }
-        elseif(count($this->blues) < 4){
+        elseif(count($this->blues) <= 4){
             $this->blues[] = $player->getName();
             $this->bluess[] = $player;
             $inv->setItem(4, (new ItemFactory)->get(ItemIds::WOOL, 11, 1)->setCustomName("§r§e Change Team\n§7[Use]"));
@@ -241,7 +242,7 @@ return;
                                 if (in_array($player->getName(), $this->reds)) {
                                     $this->tpRed($player);
                                     $player->sendMessage($this->getPrefix() . "Cannot jump on own Goal");
-                                    return;
+                                    return false;
                                 }
                                 if (in_array($player->getName(), $this->blues)) {
                                     $this->broadcastMessage(TextFormat::BLUE . $player->getName() . TextFormat::BLUE . "\nGoal", Arena::MSG_TITLE);
@@ -249,14 +250,14 @@ return;
                                     $this->tpBlue($bluePlayer, true);
                                     $this->tpRed($redPlayer, true);
                                     $this->bluesp++;
-                                    return;
+                                    return false;
                                 }
                             }
                             if ($block->getId() == 231) {
                                 if (in_array($player->getName(), $this->blues)) {
                                     $this->tpBlue($player);
                                     $player->sendMessage($this->getPrefix() . "Cannot jump on own Goal");
-                                    return;
+                                    return false;
                                 }
                                 if (in_array($player->getName(), $this->reds)) {
                                     $this->broadcastMessage(TextFormat::RED . $player->getName() . TextFormat::RED . "\nGoal", Arena::MSG_TITLE);
@@ -264,7 +265,7 @@ return;
                                     $this->tpRed($redPlayer, true);
                                     $this->tpBlue($bluePlayer, true);
                                     $this->redsp++;
-                                    return;
+                                    return false;
                                 }
                             }
 }
@@ -306,6 +307,12 @@ return;
                 }
                 break;
             default:
+                 if (in_array($player->getName(), $this->reds)) {
+                        unset($this->redss[$player]);
+                    }
+                    if (in_array($player->getName(), $this->blues)) {
+                        unset($this->bluess[$player]);
+                    }
                 unset($this->players[$player->getName()]);
                 unset($this->kills[array_search($player->getName(), $this->kills)]);
                 unset($this->deaths[array_search($player->getName(), $this->kills)]);
@@ -362,18 +369,8 @@ return;
 
             }
         }
-foreach ($this->redss as $red) {
-    foreach ($this->bluess as $blue){
         $this->players = $players;
-        $blues = [];
-        $reds = [];
-        $reds[$red->getName()] = $red;
-        $blues[$blue->getName()] = $blue;
-    $this->bluess = $blues;
-    $this->redss = $reds;
     $this->phase = 1;
-}
-}
 }
 
 public function tpBlue(Player $player, bool $addGlass = false){
